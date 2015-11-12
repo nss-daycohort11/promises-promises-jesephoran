@@ -1,0 +1,7 @@
+.container-fluid {
+	border-bottom: 1px solid black;
+}
+
+.col-md-8 {
+	padding: 20px;
+}

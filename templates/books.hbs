@@ -1,4 +1,14 @@
 {{#each books}}
-  <h3>{{ title }}</h3>
-  <section>{{ type }}</section>
+ <div class="col-md-4">
+			<!-- title, author, publisher, year, genre  -->
+			<h3>{{title}}<em>{{author}}</em></h3>
+			<p>{{publisher}}, {{year}}</p>
+			<p>{{genre}}</p> //only populate when both databases are working
+		
+		</div>
+		
+<div class="col-md-8">
+	  		<p>{{synopsis}}</p>
+	  	</div>  
+	
 {{/each}}
