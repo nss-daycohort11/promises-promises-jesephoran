@@ -4,33 +4,31 @@ define(function(require) {
   var getBooks = require("get-books");
   var getBookTypes = require("get-book-types");
   
-  var globalVariable;
-console.log("You've loaded main.js");
-  var bookLibrary = {};
-  var compiledLibrary = getBookTypes();
+  var genreNames;
+  var librarySorting = getBookTypes();
 
-compiledLibrary
-    .then(function(types) {
-      globalVariable = types;
-      return getBooks.load();
+librarySorting
+    .then(function(allTypes) {
+      genreNames = allTypes; // assigns allTypes object to a module-level variable
+      console.log("allTypes", allTypes);
+      return getBooks.retrieveLibrary();
     })
     .then(function(books) {
 
-      globalVariable = Object.keys( globalVariable ).map(key => globalVariable[ key ]);
-        books = Object.keys( books ).map(key => books[ key ]);
+      genreNames = Object.keys(genreNames).map(key => genreNames[key]); 
+      books = Object.keys(books).map(key => books[key]); 
+      console.log("books", books);  
 
-        var updatedBooks = books.map(book => {
-          book.type = _.find(globalVariable, { id:book.booktype }).label;
-          return book;
-        });
+      // applies genre name to each book object
+      var updatedBooks = books.map(book => {
+        book.type = _.find(genreNames, {id:book.booktype}).label; //study this line of code more
+        return book;
+      });
 
-        console.log("updatedBooks",updatedBooks);
-
-
-        var objectToSendToHandlebars = {books:updatedBooks};
-        require(['hbs!../templates/books'], function(bookTpl) {
-          $("#bookList").html(bookTpl(objectToSendToHandlebars));
-        });
+      var objectToSendToHandlebars = {books:updatedBooks};
+      require(['hbs!../templates/books'], function(bookTpl) {
+        $("#bookList").html(bookTpl(objectToSendToHandlebars));
+      });
 
 
 

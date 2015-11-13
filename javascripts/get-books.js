@@ -5,7 +5,7 @@ define(function(require) {
   // var BookTypes = require("get-book-types");
 
 return{
-    load: function() {
+    retrieveLibrary: function() {
       var deferred = Q.defer();
       $.ajax({
         url: "https://nss-book-store.firebaseio.com/books.json"
