@@ -6,35 +6,56 @@ define(function(require) {
   
   var globalVariable;
 console.log("You've loaded main.js");
+  var bookLibrary = {};
+  var compiledLibrary = getBookTypes();
 
-
-getBookTypes()
+compiledLibrary
     .then(function(types) {
       globalVariable = types;
-      console.log("typesget", globalVariable);
       return getBooks.load();
     })
     .then(function(books) {
 
       globalVariable = Object.keys( globalVariable ).map(key => globalVariable[ key ]);
         books = Object.keys( books ).map(key => books[ key ]);
-        console.log("globalVariable222", globalVariable);
 
-        books = books.map(book => {
+        var updatedBooks = books.map(book => {
           book.type = _.find(globalVariable, { id:book.booktype }).label;
-          console.log("books", books);
+          return book;
+        });
+
+        console.log("updatedBooks",updatedBooks);
+
+
+        var objectToSendToHandlebars = {books:updatedBooks};
+        require(['hbs!../templates/books'], function(bookTpl) {
+          $("#bookList").html(bookTpl(objectToSendToHandlebars));
+        });
+
+
 
           
-        require(['hbs!../templates/books'], function(bookTpl) {
-          $("#bookList").html(bookTpl({ books:books }));
-        });
-          return books;
-        });
     })
     .fail(function(error) {
       console.log("error", error)
     })
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 });
-
-

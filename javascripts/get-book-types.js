@@ -10,7 +10,6 @@ define(function(require) {
     })
     .done(function(types) {
       deferred.resolve(types);
-      console.log("types",types);
     })
     .fail(function(error) {
       deferred.reject(error); 

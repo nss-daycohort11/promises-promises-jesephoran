@@ -1,15 +1,19 @@
 {{#each books}}
- <div class="col-md-4">
+
+	<div class="row each-book">
+ 		<div class="col-lg-4">
 			<!-- title, author, publisher, year, genre  -->
-			<h3>{{title}}<em>{{author}}</em></h3>
+			<h3>{{title}}</h3>
+			<h4><em>{{author}}</em></h4>
 			<p>{{publisher}}, {{year}}</p>
 			<p>{{genre}}</p>
 			<p>{{type}}</p> {{!-- only populate when both databases are working --}}
-		
 		</div>
 		
-<div class="col-md-8">
+		<div class="col-lg-8">
 	  		<p>{{synopsis}}</p>
-	  	</div>  
+	  	</div> 
+	</div>
+
 	
 {{/each}}
